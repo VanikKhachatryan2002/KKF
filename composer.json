@@ -6,8 +6,8 @@
     "license": "MIT",
     "require": {
         "php": "^8.3.9",
-        "fruitcake/laravel-cors": "^2.0.5",
-        "guzzlehttp/guzzle": "^7.2",
+        "fruitcake/laravel-cors": "^2.2.0",
+        "guzzlehttp/guzzle": "^7.9.2",
         "laravel/framework": "^9.0",
         "laravel/sanctum": "^2.14",
         "laravel/tinker": "^2.7",

@@ -5,7 +5,7 @@
     "keywords": ["framework", "laravel"],
     "license": "MIT",
     "require": {
-        "php": "^8.3",
+        "php": "^8.3.9",
         "fruitcake/laravel-cors": "^2.0.5",
         "guzzlehttp/guzzle": "^7.2",
         "laravel/framework": "^9.0",
@@ -56,9 +56,6 @@
         }
     },
     "config": {
-        "platform": {
-            "php": "8.3.9"
-        },
         "optimize-autoloader": true,
         "preferred-install": "dist",
         "sort-packages": true

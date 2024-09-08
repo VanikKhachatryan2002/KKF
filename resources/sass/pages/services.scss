@@ -1,0 +1,109 @@
+.service-container{
+    padding: 60px;
+    background-image: url('../../images/services/services-global.webp');
+    background-size: auto;
+
+    h1{
+        text-align: center;
+
+        @media (max-width: 600px){
+            font-size: 28px;
+        }
+        @media (max-width: 390px){
+            font-size: 24px;
+        }
+
+    }
+
+    .services_container{
+        margin-top: 50px;
+
+        .services{
+            display: flex;
+            width: 90%;
+            margin: auto;
+            border: 2px solid #808080;
+            padding: 20px;
+            max-height: 400px;
+            margin-top: 30px;
+            background-color: #000000;
+            color: rgb(255, 255, 255);
+            max-width: 1100px;
+
+            .img_container{
+                width: 20%;
+                height: 200px;
+                min-width: 200px;
+
+                img{
+                    width: 100%;
+                    height: 100%;
+                    filter: brightness(1.7)
+                }
+
+                @media (max-width: 600px) {
+                    width: 100%;
+                    height: 300px;
+                }
+
+                @media (max-width: 390px) {
+                    height: 230px;
+                }
+            }
+
+            .desc_container{
+                width: 60%;
+                padding: 30px;
+
+                p{
+                    margin-top: 20px;
+                    line-height: 1.4;
+
+                    @media (max-width: 720px){
+                        font-size: 14px;
+                    }
+
+                    @media (max-width: 600px){
+                        margin-bottom: 10px;
+                    }
+                }
+
+                h2{
+                    @media (max-width: 600px) {
+                        font-size: 20px;
+                    }
+                }
+
+                @media (max-width: 720px){
+                    width: 100%;
+                }
+
+                @media (max-width: 600px){
+                    padding: 0;
+                }
+            }
+
+            @media (max-width: 920px){
+                width: 100%;
+            }
+
+            @media (max-width: 600px){
+                flex-direction: column-reverse;
+                max-height: unset;
+                text-align: center;
+            }
+
+        }
+
+    }
+
+    @media (max-width: 1100px){
+        padding: 30px;
+    }
+
+    @media (max-width: 920px){
+        padding: 10px;
+    }
+
+}
+

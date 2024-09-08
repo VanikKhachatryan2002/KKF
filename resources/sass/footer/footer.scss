@@ -1,0 +1,76 @@
+.footer{
+    width: 100%;
+    background-color: #000000;
+    color: #ffffff;
+    padding: 40px;
+    cursor: default;
+
+    .container{
+        display: flex;
+        justify-content: space-between;
+        position: relative;
+        width: 80%;
+        margin: auto;
+
+        .fourniture{
+            margin-left: 10px;
+        }
+
+        a{
+            color: #ffffff;
+            text-decoration: none;
+            font-size: 20px;
+            &:hover{
+                color: rgb(17 233 17);
+            }
+        }
+        p{
+            margin-top: 10px;
+        }
+        .logoContainer{
+            display: flex;
+            justify-content: flex-start;
+            margin-top: 20px;
+
+            .facebook{
+                width: 28px;
+                height: 28px;
+                margin: 0 5px;
+                fill: #0058ff;
+            }
+
+            .instagram{
+                fill: url(#rg);
+                width: 28px;
+                height: 28px;
+                margin: 0 5px;
+            }
+
+            .viber{
+                width: 40px;
+                height: 40px;
+                margin: -4px 5px;
+            }
+
+            @media(max-width: 710px){
+                display: block;
+                text-align: center;
+            }
+        }
+        @media(max-width: 900px){
+            width: 100%;
+        }
+        @media(max-width: 710px){
+            display: block;
+            text-align: center;
+
+            > div{
+                width: 100%;
+                margin-top: 20px;
+            }
+        }
+    }
+    @media(max-width: 710px){
+        padding: 20px;
+    }
+}

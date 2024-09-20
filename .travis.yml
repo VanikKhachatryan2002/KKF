@@ -1,13 +1,14 @@
 language: php
 
-dist: focal  # Use Ubuntu 20.04 (focal) for compatibility with PHP 8.3
+php:
+  - '8.2'
 
 before_install:
-  - sudo add-apt-repository ppa:ondrej/php -y  # Add the PHP 8.3 repository
+  - sudo add-apt-repository ppa:ondrej/php -y  # Add PHP 8.2 repository
   - sudo apt-get update
-  - sudo apt-get install -y php8.3 php8.3-cli php8.3-common php8.3-mbstring php8.3-xml php8.3-curl
-  - sudo update-alternatives --set php /usr/bin/php8.3  # Set PHP 8.3 globally
-  - php --version  # Confirm PHP 8.3 is being used
+  - sudo apt-get install -y php8.2 php8.2-cli php8.2-common php8.2-mbstring php8.2-xml php8.2-curl
+  - sudo update-alternatives --set php /usr/bin/php8.2  # Set PHP 8.2 globally
+  - php --version  # Confirm PHP 8.2 is being used
 
 install:
   - composer install --no-interaction --prefer-dist --optimize-autoloader

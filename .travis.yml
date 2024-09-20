@@ -4,11 +4,11 @@ php:
   - '8.2'
 
 before_install:
-  - sudo add-apt-repository ppa:ondrej/php -y  # Add PHP 8.2 repository
-  - sudo apt-get update
-  - sudo apt-get install -y php8.2 php8.2-cli php8.2-common php8.2-mbstring php8.2-xml php8.2-curl
-  - sudo update-alternatives --set php /usr/bin/php8.2  # Set PHP 8.2 globally
-  - php --version  # Confirm PHP 8.2 is being used
+  - sudo add-apt-repository ppa:ondrej/php -y  # Add Ondřej Surý's PPA for PHP versions
+  - sudo apt-get update  # Update package lists to include the new PHP version
+  - sudo apt-get install -y php8.2 php8.2-cli php8.2-common php8.2-mbstring php8.2-xml php8.2-curl  # Install PHP 8.2 and necessary extensions
+  - sudo update-alternatives --set php /usr/bin/php8.2  # Set PHP 8.2 as the default version
+  - php --version  # Verify the installed PHP version
 
 install:
   - composer install --no-interaction --prefer-dist --optimize-autoloader

@@ -20,9 +20,9 @@ before_script:
 
 before_install: echo "extension = <extension>.so" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
 
-
 install:
-  - composer install --no-interaction --prefer-dist --optimize-autoloader
+  - ./bin/ci/install_dependencies.sh
+  - php vendor/vendors.php
 
 script:
   - vendor/bin/phpunit --configuration phpunit.xml

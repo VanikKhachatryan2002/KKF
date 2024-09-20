@@ -1,31 +1,40 @@
+dist: trusty
+sudo: false
 language: php
 
 php:
   - '8.2'
 
-before_script:
-  - sudo apt-get update
-  - sudo apt-get install apache2 libapache2-mod-fastcgi
-  # enable php-fpm
-  - sudo cp ~/.phpenv/versions/$(phpenv version-name)/etc/php-fpm.conf.default ~/.phpenv/versions/$(phpenv version-name)/etc/php-fpm.conf
-  - sudo a2enmod rewrite actions fastcgi alias
-  - echo "cgi.fix_pathinfo = 1" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
-  - sudo sed -i -e "s,www-data,travis,g" /etc/apache2/envvars
-  - sudo chown -R travis:travis /var/lib/apache2/fastcgi
-  - ~/.phpenv/versions/$(phpenv version-name)/sbin/php-fpm
-  # configure apache virtual hosts
-  - sudo cp -f build/travis-ci-apache /etc/apache2/sites-available/000-default.conf
-  - sudo sed -e "s?%TRAVIS_BUILD_DIR%?$(pwd)?g" --in-place /etc/apache2/sites-available/000-default.conf
-  - sudo service apache2 restart
+env:
+  - DB=mariadb
+  - DB=mysql
+  - DB=pgsql
+  - DB=sqlite
 
-before_install: echo "extension = <extension>.so" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
+before_install:
+  - |
+    if [[ "$COVERAGE" != "1" ]]; then
+      phpenv config-rm ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/xdebug.ini || echo "xdebug is not installed"
+    fi
+  - echo "memory_limit=-1" >> ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/travis.ini
+  - travis_retry composer self-update
 
 install:
-  - ./bin/ci/install_dependencies.sh
-  - php vendor/vendors.php
+  - rm composer.lock
+  - travis_retry composer update --no-interaction --prefer-dist --no-suggest --no-progress
 
 script:
-  - vendor/bin/phpunit --configuration phpunit.xml
+  - |
+    if [[ "$DB" == "mysql" || "$DB" == "mariadb" ]]; then
+      mysql -e "CREATE SCHEMA doctrine_tests; GRANT ALL PRIVILEGES ON doctrine_tests.* to travis@'%'";
+    fi
+  - ENABLE_SECOND_LEVEL_CACHE=0 ./vendor/bin/phpunit -v -c tests/travis/$DB.travis.xml
+  # temporarily disabled
+  #- ENABLE_SECOND_LEVEL_CACHE=1 ./vendor/bin/phpunit -v -c tests/travis/$DB.travis.xml --exclude-group performance,non-cacheable,locking_functional
+
+cache:
+  directories:
+    - $HOME/.composer/cache
 
 deploy:
   provider: script

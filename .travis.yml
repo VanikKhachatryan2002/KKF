@@ -7,7 +7,7 @@ before_install:
   - sudo add-apt-repository ppa:ondrej/php -y  # Add Ondřej Surý's PPA for PHP versions
   - sudo apt-get update  # Update package lists to include the new PHP version
   - sudo apt-get install -y libonig-dev  # Install libonig for mbstring support
-  - sudo apt-get install -y php8.2-mbstring php8.2-xml php8.2-curl  # Ensure necessary PHP extensions are installed
+  - sudo apt-get install -y php8.2 php8.2-cli php8.2-common php8.2-mbstring php8.2-xml php8.2-curl # Install PHP and necessary extensions
   - php -m  # Show installed PHP modules for debugging
 
 install:

@@ -1,11 +1,17 @@
 language: php
 php:
-  - '8.3.9'
+  - '8.3'
+
+before_install:
+  - sudo add-apt-repository ppa:ondrej/php -y
+  - sudo apt-get update
+  - sudo apt-get install -y php8.3 php8.3-cli php8.3-common php8.3-mbstring php8.3-xml php8.3-curl
 
 install:
   - composer install --no-interaction --prefer-dist --optimize-autoloader
 
 script:
+  - php --version  # Ensure the correct version of PHP is installed
   - vendor/bin/phpunit --configuration phpunit.xml
 
 deploy:
@@ -13,4 +19,3 @@ deploy:
   script: bash deploy.sh
   on:
     branch: master
-

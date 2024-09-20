@@ -1,5 +1,4 @@
-dist: trusty
-sudo: false
+dist: focal  # or another recent version like bionic
 language: php
 
 php:
@@ -29,8 +28,6 @@ script:
       mysql -e "CREATE SCHEMA doctrine_tests; GRANT ALL PRIVILEGES ON doctrine_tests.* to travis@'%'";
     fi
   - ENABLE_SECOND_LEVEL_CACHE=0 ./vendor/bin/phpunit -v -c tests/travis/$DB.travis.xml
-  # temporarily disabled
-  #- ENABLE_SECOND_LEVEL_CACHE=1 ./vendor/bin/phpunit -v -c tests/travis/$DB.travis.xml --exclude-group performance,non-cacheable,locking_functional
 
 cache:
   directories:

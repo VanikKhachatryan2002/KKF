@@ -6,7 +6,6 @@ php:
 before_install:
   - sudo add-apt-repository ppa:ondrej/php -y  # Add Ondřej Surý's PPA for PHP versions
   - sudo apt-get update  # Update package lists to include the new PHP version
-  - php --version  # Verify the installed PHP version
 
 install:
   - composer install --no-interaction --prefer-dist --optimize-autoloader

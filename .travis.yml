@@ -1,6 +1,10 @@
 language: php
+
+# We can leave this version here for syntax, but it won't be used.
 php:
-  - '8.3'
+  - '8.0'  # Placeholder; actual PHP 8.3 will be installed manually.
+
+dist: focal  # Use a newer distribution that better supports PHP 8.3
 
 before_install:
   - sudo add-apt-repository ppa:ondrej/php -y
@@ -11,7 +15,7 @@ install:
   - composer install --no-interaction --prefer-dist --optimize-autoloader
 
 script:
-  - php --version  # Ensure the correct version of PHP is installed
+  - php --version  # Verify PHP 8.3 is installed
   - vendor/bin/phpunit --configuration phpunit.xml
 
 deploy:

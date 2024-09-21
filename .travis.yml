@@ -17,6 +17,7 @@ before_install:
     fi
   - echo "memory_limit=-1" >> ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/travis.ini
   - travis_retry composer self-update
+  - composer clear-cache
 
 install:
   - rm composer.lock

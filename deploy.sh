@@ -1,8 +1,7 @@
 #!/bin/bash
 set -e
 
-# Ensure the script is executable
-chmod +x ./deploy.sh
+set -x
 
 # Deployment steps
 composer install --no-dev --optimize-autoloader

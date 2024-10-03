@@ -1,36 +1,15 @@
-# Use the official PHP image with FPM
-FROM php:8.2-fpm
-
-# Install system dependencies
-RUN apt-get update && apt-get install -y \
-    nginx \
-    git \
-    unzip \
-    libpng-dev \
-    libonig-dev \
-    libxml2-dev \
-    zip \
-    curl \
-    && docker-php-ext-install pdo_mysql mbstring exif pcntl bcmath gd \
-    && apt-get clean && rm -rf /var/lib/apt/lists/*
-
-# Install Composer
-COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
-
-# Set working directory
-WORKDIR /var/www
-
-# Copy project files to the working directory
+FROM richarvey/nginx-php-fpm:1.7.2
 COPY . .
-
-# Install project dependencies
-RUN composer install --no-dev --optimize-autoloader
-
-# Copy Nginx configuration
-COPY nginx/default.conf /etc/nginx/conf.d/default.conf
-
-# Expose port 80 for Nginx and port 9000 for PHP-FPM
-EXPOSE 80 9000
-
-# Start Nginx and PHP-FPM
-CMD service nginx start && php-fpm
+# Image config
+ENV SKIP_COMPOSER 1
+ENV WEBROOT /var/www/html/public
+ENV PHP_ERRORS_STDERR 1
+ENV RUN_SCRIPTS 1
+ENV REAL_IP_HEADER 1
+# Laravel config
+ENV APP_ENV production
+ENV APP_DEBUG false
+ENV LOG_CHANNEL stderr
+# Allow composer to run as root
+ENV COMPOSER_ALLOW_SUPERUSER 1
+CMD ["/start.sh"]

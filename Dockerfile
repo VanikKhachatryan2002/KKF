@@ -1,18 +1,18 @@
-# Use the official PHP image with FPM
+# Use the official PHP image with Composer
 FROM php:8.2-fpm
 
 # Install system dependencies
 RUN apt-get update && apt-get install -y \
-    nginx \
     git \
     unzip \
     libpng-dev \
     libonig-dev \
     libxml2-dev \
     zip \
-    curl \
-    && docker-php-ext-install pdo_mysql mbstring exif pcntl bcmath gd \
-    && apt-get clean && rm -rf /var/lib/apt/lists/*
+    curl
+
+# Install PHP extensions
+RUN docker-php-ext-install pdo_mysql mbstring exif pcntl bcmath gd
 
 # Install Composer
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
@@ -24,13 +24,8 @@ WORKDIR /var/www
 COPY . .
 
 # Install project dependencies
-RUN composer install --no-dev --optimize-autoloader
+RUN composer install --optimize-autoloader --no-dev
 
-# Copy Nginx configuration
-COPY nginx/default.conf /etc/nginx/conf.d/default.conf
-
-# Expose port 80 for Nginx and port 9000 for PHP-FPM
-EXPOSE 80 9000
-
-# Start Nginx and PHP-FPM
-CMD service nginx start && php-fpm
+# Expose port 9000 and start PHP-FPM server
+EXPOSE 9000
+CMD ["php-fpm"]

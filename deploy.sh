@@ -3,16 +3,20 @@
 # Exit on errors
 set -e
 
-# Define your server and path
-SERVER_USER="your-username"
-SERVER_IP="your-server-ip"
-DEPLOY_PATH="/path/to/your/deployment/directory"
+# Install Composer dependencies without development packages
+composer install --no-dev --optimize-autoloader
 
-# Deploy
-ssh $SERVER_USER@$SERVER_IP <<EOF
-  cd $DEPLOY_PATH
-  git pull origin main
-  composer install --no-dev --optimize-autoloader
-  php artisan migrate --force
-  php artisan cache:clear
-EOF
+# Generate application key (if not already set)
+php artisan key:generate
+
+# Clear any cached views or configuration
+php artisan cache:clear
+php artisan config:clear
+php artisan view:clear
+
+# Build front-end assets
+npm install
+npm run prod
+
+# Ensure correct file permissions (if necessary)
+# sudo chown -R www-data:www-data /path/to/your/deployment/directory

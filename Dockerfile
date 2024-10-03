@@ -13,7 +13,6 @@ ENV LOG_CHANNEL stderr
 # Allow composer to run as root
 ENV COMPOSER_ALLOW_SUPERUSER 1
 # Ensure deploy script is executable
-RUN chmod +x /deploy.sh
 
 # Start the application
 ENTRYPOINT ["./deploy.sh"]

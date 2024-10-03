@@ -2,7 +2,7 @@
 set -e
 
 # Ensure the script is executable
-chmod +x deploy.sh
+chmod +x ./deploy.sh
 
 # Deployment steps
 composer install --no-dev --optimize-autoloader

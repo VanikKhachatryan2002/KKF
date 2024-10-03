@@ -1,31 +1,12 @@
-# Use the official PHP image with Composer
-FROM php:8.2-fpm
+#!/bin/bash
+set -e
 
-# Install system dependencies
-RUN apt-get update && apt-get install -y \
-    git \
-    unzip \
-    libpng-dev \
-    libonig-dev \
-    libxml2-dev \
-    zip \
-    curl
+# Your deployment steps
+composer install --no-dev --optimize-autoloader
+php artisan key:generate
+npm install
+npm run prod
+php artisan cache:clear
 
-# Install PHP extensions
-RUN docker-php-ext-install pdo_mysql mbstring exif pcntl bcmath gd
-
-# Install Composer
-COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
-
-# Set working directory
-WORKDIR /var/www
-
-# Copy project files to the working directory
-COPY . .
-
-# Install project dependencies
-RUN composer install --optimize-autoloader --no-dev
-
-# Expose port 9000 and start PHP-FPM server
-EXPOSE 9000
-CMD ["php-fpm"]
+# Start the PHP built-in server (if that's your approach)
+php artisan serve --host=0.0.0.0 --port=10000

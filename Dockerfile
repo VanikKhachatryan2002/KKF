@@ -8,7 +8,7 @@ RUN apt-get update && apt-get install -y nginx && \
 WORKDIR /var/www/html
 
 
-COPY ./conf/nginx/nginx.conf... /etc/nginx/nginx.conf
+COPY . .
 
 RUN chmod +x /usr/local/bin/docker-php-entrypoint
 
@@ -30,4 +30,4 @@ ENV COMPOSER_ALLOW_SUPERUSER 1
 
 EXPOSE 80
 
-CMD ["nginx", "-g", "daemon off;"]
+CMD ["sh", "-c", "service nginx start && php-fpm"]

@@ -17,4 +17,4 @@ ENV LOG_CHANNEL stderr
 # Allow composer to run as root
 ENV COMPOSER_ALLOW_SUPERUSER 1
 
-CMD ["/start.sh"]
+CMD ["sh", "-c", "service nginx start && php-fpm"]

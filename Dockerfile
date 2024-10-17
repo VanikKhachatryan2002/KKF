@@ -8,7 +8,8 @@ RUN apt-get update && apt-get install -y nginx && \
 WORKDIR /var/www/html
 
 
-COPY ./conf/nginx/nginx.conf /etc/nginx/nginx.conf
+COPY ./conf/nginx/nginx.conf... /etc/nginx/nginx.conf
+COPY ./conf/nginx/default.conf... /etc/nginx/conf.d/default.conf
 
 RUN chmod +x /usr/local/bin/docker-php-entrypoint
 

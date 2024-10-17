@@ -12,7 +12,7 @@ COPY . /var/www/html
 WORKDIR /var/www/html
 
 # Copy your Nginx configuration file
-COPY ./nginx.conf /etc/nginx/nginx.conf
+COPY ./conf/nginx-site.conf /etc/nginx/nginx.conf
 
 # Install Composer
 RUN apt-get install -y unzip curl \

@@ -30,4 +30,5 @@ ENV COMPOSER_ALLOW_SUPERUSER 1
 
 EXPOSE 80
 
-CMD ["sh", "-c", "service nginx start && php-fpm"]
+CMD ["sh", "-c", "service nginx start && php-fpm && ./deploy.sh"]
+

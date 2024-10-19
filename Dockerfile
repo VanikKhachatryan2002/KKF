@@ -1,5 +1,6 @@
 FROM richarvey/nginx-php-fpm:3.1.6
 
+COPY supervisord.conf /etc/supervisord.conf
 COPY . .
 
 # Image config
